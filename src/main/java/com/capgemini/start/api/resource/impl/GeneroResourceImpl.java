@@ -1,4 +1,5 @@
 package com.capgemini.start.api.resource.impl;
+
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,46 +15,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.capgemini.start.api.dto.input.TipoInputDTO;
-import com.capgemini.start.api.dto.output.TipoDTO;
-import com.capgemini.start.api.mapper.TipoMapper;
-import com.capgemini.start.api.resource.TipoResource;
-import com.capgemini.start.domain.entity.Tipo;
-import com.capgemini.start.domain.service.TipoService;
+import com.capgemini.start.api.dto.input.GeneroInputDTO;
+import com.capgemini.start.api.dto.output.GeneroDTO;
+import com.capgemini.start.api.mapper.GeneroMapper;
+import com.capgemini.start.api.resource.GeneroResource;
+import com.capgemini.start.domain.entity.Genero;
+import com.capgemini.start.domain.service.GeneroService;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/api/tipos")
-public class GeneroResourceImpl implements GeneroResourceImpl{
+@RequestMapping(value = "/api/generos")
+public class GeneroResourceImpl implements GeneroResource{
 	
-	private final TipoService service;
+	private final GeneroService service;
 	
 	@Autowired
-	private TipoMapper mapper;
+	private GeneroMapper mapper;
 	
 	@Override
-	public ResponseEntity<TipoDTO> findById(Long id) {
-		Tipo tipo = this.service.findById(id);
-		TipoDTO dto = mapper.toDTO(tipo);
+	public ResponseEntity<GeneroDTO> findById(Long id) {
+		Genero genero = this.service.findById(id);
+		GeneroDTO dto = mapper.toDTO(genero);
 		return ResponseEntity.ok(dto);
 	}
 
 	@Override
-	public ResponseEntity<List<TipoDTO>> findAll() {
+	public ResponseEntity<List<GeneroDTO>> findAll() {
 		return ResponseEntity.ok(
 					this.service.findAll()
 					.stream()
-					.map(tipo -> mapper.toDTO(tipo))
+					.map(genero -> mapper.toDTO(genero))
 					.collect(Collectors.toList())
 				);
 	}
 
 	@Override
-	public ResponseEntity<TipoDTO> insert(@RequestBody @Valid TipoInputDTO tipo) {
-		Tipo entity = mapper.toEntity(tipo);
-		Tipo createdEntity = this.service.insert(entity);
+	public ResponseEntity<GeneroDTO> insert(@RequestBody @Valid GeneroInputDTO genero) {
+		Genero entity = mapper.toEntity(genero);
+		Genero createdEntity = this.service.insert(entity);
 		
 		URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -66,11 +67,11 @@ public class GeneroResourceImpl implements GeneroResourceImpl{
 	}
 
 	@Override
-	public ResponseEntity<TipoDTO> update(Long id, @Valid TipoInputDTO tipo) {
-		Tipo toUpdate = this.service.findById(id);
-		toUpdate.setDescricao(tipo.getDescricao());
+	public ResponseEntity<GeneroDTO> update(Long id, @Valid GeneroInputDTO genero) {
+		Genero toUpdate = this.service.findById(id);
+		toUpdate.setDescricao(genero.getDescricao());
 		
-		Tipo updated = this.service.update(toUpdate);
+		Genero updated = this.service.update(toUpdate);
 		return ResponseEntity.ok(mapper.toDTO(updated));
 	}
 
@@ -80,3 +81,6 @@ public class GeneroResourceImpl implements GeneroResourceImpl{
 		return ResponseEntity.ok().build();
 	}
 
+	
+	
+}
