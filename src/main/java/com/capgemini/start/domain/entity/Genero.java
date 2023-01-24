@@ -1,4 +1,5 @@
 package com.capgemini.start.domain.entity;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,16 +18,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity(name="tb_tipo")
+@Entity(name="tb_genero")
 public class Genero {
 	
 	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_tipo", nullable = false)
+	@Column(name = "id_genero", nullable = false)
 	private Long id;
 	
-	@Column(name ="ds_tipo", nullable = false, length = 100)
+	@Column(name ="ds_genero", nullable = false, length = 100)
 	private String descricao;
 	
 	@Column(name = "dt_criacao", nullable = false)
@@ -35,3 +36,4 @@ public class Genero {
 	@Column(name = "dt_alteracao")
 	private Date dataAlteracao;
 	
+}
